@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STOCK DEVICE MAROS M114</title>
+
+     <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 10px;
+    }
+
+    h1 {
+      font-size: 1.5em;
+      text-align: center;
+    }
+
+    #search-bar {
+      width: 100%;
+      max-width: 400px;
+      padding: 8px;
+      margin: 10px auto;
+      display: block;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    #last-update {
+      text-align: center;
+      font-size: 0.9em;
+      color: gray;
+      margin-bottom: 10px;
+    }
+
+    /* Scrollable table for mobile */
+    .table-container {
+      overflow-x: auto;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      min-width: 600px; /* Supaya kolom tetap proporsional */
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #4caf50;
+      color: white;
+    }
+
+    .low-stock {
+      background-color: #ffcccc;
+      font-weight: bold;
+    }
+
+    /* Responsive headings & font size */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.2em;
+      }
+      th, td {
+        font-size: 0.85em;
+        padding: 6px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1em;
+      }
+      #search-bar {
+        font-size: 0.9em;
+      }
+      th, td {
+        font-size: 0.75em;
+        padding: 5px;
+      }
+    }
+  </style>
+</head>
+    <body>
+  <!-- Overlay popup -->
+  <div id="popup-overlay">
+    <div id="popup-box">
+      <h2>Masukkan Nama Anda</h2>
+      <input type="text" id="input-nama" placeholder="Nama Anda..." />
+      <button id="btn-submit-nama">Masuk</button>
+    </div>
+  </div>
+
+  <h1>STOCK TOKO ERAFONE MAROS (M114)☠️</h1>
+  <div id="nama-user" style="text-align:center; font-weight:bold; margin-bottom:10px; font-size:18px; color:#4caf50;"></div>
+  <div id="last-update">Terakhir diperbarui: -</div>
+  <input
+    type="text"
+    id="search-bar"
+    placeholder="Cari barang..."
+    oninput="filterItems()"
+  />
+
+  <table>
+    <thead>
+      <tr>
+        <th>Material</th>
+        <th>Description</th>
+        <th>Stok Masuk</th>
+        <th>Stok Keluar</th>
+        <th>Total</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody id="tabel-barang">
+      <tr>
+        <td colspan="6">Silakan masukkan nama untuk memuat data...</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <style>
+    /* Popup overlay */
+    #popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+    #popup-box {
+      background: white;
+      padding: 20px 30px;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    #popup-box h2 {
+      margin-bottom: 15px;
+    }
+    #popup-box input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    #popup-box button {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    #popup-box button:hover {
+      background-color: #45a049;
+    }
+  </style>
+
+  <script>
+    const popupOverlay = document.getElementById("popup-overlay");
+    const btnSubmitNama = document.getElementById("btn-submit-nama");
+    const inputNama = document.getElementById("input-nama");
+    const namaUserDiv = document.getElementById("nama-user");
+    const lastUpdate = document.getElementById("last-update");
+    const tabelBarang = document.getElementById("tabel-barang");
+    const searchInput = document.getElementById("search-bar");
+
+    // Saat klik tombol masuk
+    btnSubmitNama.addEventListener("click", () => {
+      const nama = inputNama.value.trim();
+      if (nama !== "") {
+        namaUserDiv.textContent = `Selamat Datang: ${nama}`;
+        popupOverlay.style.display = "none";
+        loadData(); // baru load data setelah nama dimasukkan
+      } else {
+        inputNama.style.border = "2px solid red";
+      }
+    });
+
+    // Fungsi filter tabel
+    function filterItems() {
+      const searchQuery = searchInput.value.toLowerCase();
+      const rows = tabelBarang.getElementsByTagName("tr");
+      for (let i = 0; i < rows.length; i++) {
+        const cells = rows[i].getElementsByTagName("td");
+        if (cells.length > 0) {
+          const material = cells[0].textContent.toLowerCase();
+          const description = cells[1].textContent.toLowerCase();
+          if (material.includes(searchQuery) || description.includes(searchQuery)) {
+            rows[i].style.display = "";
+          } else {
+            rows[i].style.display = "none";
+          }
+        }
+      }
+    }
+
+    // Fungsi untuk ambil data dari Google Sheets
+    function loadData() {
+      const sheetID = "11xtV-IQl-gD7X1nmAdT52u3XomF_7DT0hNJRyZj2hs4";
+      const sheetName = "Sheet1";
+      const url = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
+
+      fetch(url)
+        .then((res) => res.text())
+        .then((data) => {
+          const json = JSON.parse(data.substr(47).slice(0, -2));
+          const rows = json.table.rows;
+          tabelBarang.innerHTML = "";
+
+          rows.forEach((row) => {
+            const cells = row.c;
+            const material = cells[0]?.v || "-";
+            const description = cells[1]?.v || "-";
+            const stokMasuk = parseInt(cells[2]?.v || 0);
+            const stokKeluar = parseInt(cells[3]?.v || 0);
+            const total = stokMasuk - stokKeluar;
+
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+              <td>${material}</td>
+              <td>${description}</td>
+              <td>${stokMasuk}</td>
+              <td>${stokKeluar}</td>
+              <td class="${total === 1 ? 'low-stock' : ''}">${total}</td>
+              <td>-</td>
+            `;
+            tabelBarang.appendChild(tr);
+          });
+
+          lastUpdate.textContent = "Terakhir diperbarui: " + new Date().toLocaleString();
+        })
+        .catch((err) => {
+          console.error("Gagal memuat data spreadsheet:", err);
+          tabelBarang.innerHTML = "<tr><td colspan='6'>Gagal memuat data.</td></tr>";
+        });
+    }
+  </script>
+</body>
+</html>
