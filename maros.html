@@ -1,53 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STOCK DEVICE MAROS M114</title>
-
-     <style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stock Toko Erafone Maros M114 🔍</title>
+  <style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 10px;
+      font-family: 'Roboto', sans-serif;
+      background-color: #e9f7fd;
+      margin: 0;
+      padding: 20px;
     }
 
     h1 {
-      font-size: 1.5em;
+      color: #333;
       text-align: center;
-    }
-
-    #search-bar {
-      width: 100%;
-      max-width: 400px;
-      padding: 8px;
-      margin: 10px auto;
-      display: block;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-    }
-
-    #last-update {
-      text-align: center;
-      font-size: 0.9em;
-      color: gray;
       margin-bottom: 10px;
     }
 
-    /* Scrollable table for mobile */
-    .table-container {
-      overflow-x: auto;
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="file"],
+    button {
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
     }
 
     table {
-      border-collapse: collapse;
       width: 100%;
-      min-width: 600px; /* Supaya kolom tetap proporsional */
+      border-collapse: collapse;
+      margin-top: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
     }
 
     th, td {
+      padding: 12px;
       border: 1px solid #ddd;
-      padding: 8px;
       text-align: center;
+      font-size: 14px;
     }
 
     th {
@@ -56,164 +73,159 @@
     }
 
     .low-stock {
-      background-color: #ffcccc;
+      background-color: #ffeb3b;
+      color: #d32f2f;
       font-weight: bold;
     }
 
-    /* Responsive headings & font size */
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 1.2em;
-      }
-      th, td {
-        font-size: 0.85em;
-        padding: 6px;
-      }
+    .export-button {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background-color: #2196f3;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
     }
 
-    @media (max-width: 480px) {
-      h1 {
-        font-size: 1em;
-      }
-      #search-bar {
-        font-size: 0.9em;
-      }
+    .export-button:hover {
+      background-color: #1976d2;
+    }
+
+    #search-bar {
+      padding: 12px;
+      width: 100%;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+      font-size: 16px;
+      margin-bottom: 20px;
+      margin-top: 10px;
+    }
+
+    /* Popup Style */
+    #popup-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    #popup-box {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    #popup-box input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 8px;
+      margin-bottom: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    #popup-box button {
+      padding: 8px 12px;
+      background: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #popup-box button:hover {
+      background: #45a049;
+    }
+
+    /* Responsif */
+    @media (max-width: 600px) {
       th, td {
-        font-size: 0.75em;
-        padding: 5px;
+        font-size: 12px;
+        padding: 8px;
+      }
+      #popup-box {
+        width: 90%;
       }
     }
   </style>
 </head>
-    <body>
-  <!-- Overlay popup -->
+<body>
+  <!-- Popup Login -->
   <div id="popup-overlay">
     <div id="popup-box">
-      <h2>Masukkan Nama Anda</h2>
-      <input type="text" id="input-nama" placeholder="Nama Anda..." />
-      <button id="btn-submit-nama">Masuk</button>
+      <h2>Masukkan Password</h2>
+      <input type="password" id="input-password" placeholder="Password..." />
+      <button onclick="cekPassword()">Masuk</button>
+      <p id="error-pass" style="color:red; display:none;">Password salah!</p>
     </div>
   </div>
 
   <h1>STOCK TOKO ERAFONE MAROS (M114)☠️</h1>
   <div id="nama-user" style="text-align:center; font-weight:bold; margin-bottom:10px; font-size:18px; color:#4caf50;"></div>
-  <div id="last-update">Terakhir diperbarui: -</div>
-  <input
-    type="text"
-    id="search-bar"
-    placeholder="Cari barang..."
-    oninput="filterItems()"
-  />
+  <div id="last-update" style="text-align:center;">Terakhir diperbarui: -</div>
+  
+  <input type="text" id="search-bar" placeholder="Cari barang..." oninput="filterItems()" />
 
-  <table>
-    <thead>
-      <tr>
-        <th>Material</th>
-        <th>Description</th>
-        <th>Stok Masuk</th>
-        <th>Stok Keluar</th>
-        <th>Total</th>
-        <th>Aksi</th>
-      </tr>
-    </thead>
-    <tbody id="tabel-barang">
-      <tr>
-        <td colspan="6">Silakan masukkan nama untuk memuat data...</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <style>
-    /* Popup overlay */
-    #popup-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.6);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-    }
-    #popup-box {
-      background: white;
-      padding: 20px 30px;
-      border-radius: 8px;
-      text-align: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    }
-    #popup-box h2 {
-      margin-bottom: 15px;
-    }
-    #popup-box input {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 10px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      font-size: 16px;
-    }
-    #popup-box button {
-      background-color: #4caf50;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-    #popup-box button:hover {
-      background-color: #45a049;
-    }
-  </style>
+  <div class="container">
+    <table>
+      <thead>
+        <tr>
+          <th>Material</th>
+          <th>Description</th>
+          <th>Stok Masuk</th>
+          <th>Stok Keluar</th>
+          <th>Total</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="tabel-barang">
+        <tr>
+          <td colspan="6">Silakan login untuk melihat data...</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <script>
-    const popupOverlay = document.getElementById("popup-overlay");
-    const btnSubmitNama = document.getElementById("btn-submit-nama");
-    const inputNama = document.getElementById("input-nama");
-    const namaUserDiv = document.getElementById("nama-user");
+    const PASSWORD_BENAR = "maros114"; // 🔹 Ganti dengan password kamu
+    const sheetID = "11xtV-IQl-gD7X1nmAdT52u3XomF_7DT0hNJRyZj2hs4";
+    const sheetName = "Sheet1";
+    const url = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
+
     const lastUpdate = document.getElementById("last-update");
     const tabelBarang = document.getElementById("tabel-barang");
     const searchInput = document.getElementById("search-bar");
 
-    // Saat klik tombol masuk
-    btnSubmitNama.addEventListener("click", () => {
-      const nama = inputNama.value.trim();
-      if (nama !== "") {
-        namaUserDiv.textContent = `Selamat Datang: ${nama}`;
-        popupOverlay.style.display = "none";
-        loadData(); // baru load data setelah nama dimasukkan
-      } else {
-        inputNama.style.border = "2px solid red";
-      }
-    });
+    function cekPassword() {
+      const passInput = document.getElementById("input-password").value;
+      const errorText = document.getElementById("error-pass");
 
-    // Fungsi filter tabel
-    function filterItems() {
-      const searchQuery = searchInput.value.toLowerCase();
-      const rows = tabelBarang.getElementsByTagName("tr");
-      for (let i = 0; i < rows.length; i++) {
-        const cells = rows[i].getElementsByTagName("td");
-        if (cells.length > 0) {
-          const material = cells[0].textContent.toLowerCase();
-          const description = cells[1].textContent.toLowerCase();
-          if (material.includes(searchQuery) || description.includes(searchQuery)) {
-            rows[i].style.display = "";
-          } else {
-            rows[i].style.display = "none";
-          }
-        }
+      if (passInput === PASSWORD_BENAR) {
+        document.getElementById("popup-box").innerHTML = `
+          <h2>Masukkan Nama</h2>
+          <input type="text" id="input-nama" placeholder="Nama Anda..." />
+          <button onclick="masukWebsite()">Masuk</button>
+        `;
+      } else {
+        errorText.style.display = "block";
       }
     }
 
-    // Fungsi untuk ambil data dari Google Sheets
-    function loadData() {
-      const sheetID = "11xtV-IQl-gD7X1nmAdT52u3XomF_7DT0hNJRyZj2hs4";
-      const sheetName = "Sheet1";
-      const url = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
+    function masukWebsite() {
+      const nama = document.getElementById("input-nama").value.trim();
+      if (nama) {
+        document.getElementById("popup-overlay").style.display = "none";
+        document.getElementById("nama-user").textContent = "👤 " + nama;
+        loadData();
+      }
+    }
 
+    function loadData() {
       fetch(url)
         .then((res) => res.text())
         .then((data) => {
@@ -241,12 +253,30 @@
             tabelBarang.appendChild(tr);
           });
 
-          lastUpdate.textContent = "Terakhir diperbarui: " + new Date().toLocaleString();
+          const now = new Date();
+          lastUpdate.textContent = "Terakhir diperbarui: " + now.toLocaleString();
         })
         .catch((err) => {
           console.error("Gagal memuat data spreadsheet:", err);
           tabelBarang.innerHTML = "<tr><td colspan='6'>Gagal memuat data.</td></tr>";
         });
+    }
+
+    function filterItems() {
+      const searchQuery = searchInput.value.toLowerCase();
+      const rows = tabelBarang.getElementsByTagName("tr");
+      for (let i = 0; i < rows.length; i++) {
+        const cells = rows[i].getElementsByTagName("td");
+        if (cells.length > 0) {
+          const material = cells[0].textContent.toLowerCase();
+          const description = cells[1].textContent.toLowerCase();
+          if (material.includes(searchQuery) || description.includes(searchQuery)) {
+            rows[i].style.display = "";
+          } else {
+            rows[i].style.display = "none";
+          }
+        }
+      }
     }
   </script>
 </body>
